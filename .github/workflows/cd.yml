@@ -69,14 +69,14 @@ jobs:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
         run: |
           {
-            echo "POSTGRES_DB=taskflow"
-            echo "POSTGRES_USER=taskflow_user"
-            echo "POSTGRES_PASSWORD=$POSTGRES_PASSWORD"
-            echo "DATABASE_URL=postgresql://taskflow_user:${POSTGRES_PASSWORD}@postgres:5432/taskflow"
-            echo "REDIS_URL=redis://redis:6379"
-            echo "JWT_SECRET=$JWT_SECRET"
-            echo "PORT=3000"
-            echo "DOCKERHUB_USERNAME=$DOCKERHUB_USERNAME"
+            printf 'POSTGRES_DB=taskflow\n'
+            printf 'POSTGRES_USER=taskflow_user\n'
+            printf 'POSTGRES_PASSWORD=%s\n' "$POSTGRES_PASSWORD"
+            printf 'DATABASE_URL=postgresql://taskflow_user:%s@postgres:5432/taskflow\n' "$POSTGRES_PASSWORD"
+            printf 'REDIS_URL=redis://redis:6379\n'
+            printf 'JWT_SECRET=%s\n' "$JWT_SECRET"
+            printf 'PORT=3000\n'
+            printf 'DOCKERHUB_USERNAME=%s\n' "$DOCKERHUB_USERNAME"
           } > .env
 
       - name: Validate deployment Compose
@@ -123,7 +123,7 @@ jobs:
           BASE_URL: http://localhost:3000
           NODE_OPTIONS: --experimental-vm-modules
         run: |
-          npm install
+          npm ci
           npm test
 
       - name: Record published images

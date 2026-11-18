@@ -2,7 +2,7 @@
 services:
   # Frontend - Published Docker Hub image
   frontend:
-    image: priyanka555gautam/frontend:latest
+    image: ${DOCKERHUB_USERNAME}/frontend:latest
     container_name: taskflow-frontend
     ports:
       - "8080:80"
@@ -15,7 +15,7 @@ services:
 
   # Backend - Published Docker Hub image
   backend:
-    image: priyanka555gautam/backend:latest
+    image: ${DOCKERHUB_USERNAME}/backend:latest
     container_name: taskflow-backend
     ports:
       - "3000:3000"
